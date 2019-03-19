@@ -1,12 +1,6 @@
 import numpy as np
 import cv2
-import sys
 import os
-import shutil
-import argparse
-import threading
-import time
-import pandas as pd
 import math
 # from sklearn.preprocessing import StandardScaler
 
@@ -18,10 +12,7 @@ def capture_face(data_folder, photo_count, name):
     
     os.mkdir(data_folder)
     count = 0
-    '''
-    print("made path")
-    sys.exit(0)
-    '''
+    
     timer = 0
     while(count < photo_count):
 
@@ -78,29 +69,20 @@ def capture_face(data_folder, photo_count, name):
 
 def update_database(folder):
     
-    #face_cascade = cv2.CascadeClassifier('Haar_Cascades/haarcascade_frontalface_default.xml')
-    #eye_cascade = cv2.CascadeClassifier('Haar_Cascades/haarcascade_eye.xml')
-
-    photo_count = None
-
-    while(type(photo_count) != int):
-        photo_count = int(input("Photo count => "))
+    photo_count = int(input("Photo count => "))
 
     name = input(" Name: ").lower()
 
     count = 0
 
-    #create path with folder + name
+    #create individual folder
     dir_path = folder + '/' + name 
 
-    #if path does not exist yet
     if not os.path.exists(dir_path):
         capture_face(dir_path, photo_count, name)
-
-
-    #if path already exists, then no need to take a picture of user anymore
     else:
         print ("data already exists")
 
 
+update_database(main_db)
 

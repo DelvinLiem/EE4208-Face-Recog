@@ -42,5 +42,5 @@ def read_from_db(database):
 
     return image_list
 
-print(read_from_db(main_db))
+
 

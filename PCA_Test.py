@@ -3,8 +3,8 @@ import os
 import sys
 import cv2
 import pandas as pd
-# import argparse
 
+from read_from_db import *
 
 def extract_eigenvector(mean_deducted):
    
@@ -34,8 +34,6 @@ def extract_eigenvector(mean_deducted):
 
 def pca_normal(image_matrix):
     
-    
-
     col_size = np.shape(image_matrix)[1]
     faces = np.shape(image_matrix)[0]
 
@@ -43,19 +41,21 @@ def pca_normal(image_matrix):
 
     #calculate average values of faces, and the matrix deducted from it
     mean_deducted = np.zeros(np.shape(image_matrix))
+
+    # mean-shift all the values
     for i in range(0, col_size):
         average[i] = np.mean(image_matrix[:,i])
         mean_deducted[:,i] = image_matrix[:,i] - average[i]
+
 
     #write out resulting average face values
     ave = np.array(np.reshape(average, (100,100)))
     np.savetxt("./average_face_test.csv", average, delimiter=',')
     cv2.imwrite("average_face.jpg", ave)
-    #sys.exit(0)
+    
 
     #calculate the eigenvectors for the mean deducted matrix
-  
-    eigenvector = get_eigenvector(mean_deducted, normalize)
+    eigenvector = extract_eigenvector(mean_deducted)
     
     #calculate the reduced face matrix and return
     mean_deducted = np.array(mean_deducted)
