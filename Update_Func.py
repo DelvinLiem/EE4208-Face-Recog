@@ -102,7 +102,5 @@ def update_database(folder):
     else:
         print ("data already exists")
 
-person = [x for x in os.listdir(main_db)]
 
-for c, value in enumerate(person, 1):
-    print (c, value)
+
