@@ -3,6 +3,7 @@ import cv2
 import os
 import math
 # from sklearn.preprocessing import StandardScaler
+from read_from_db import *
 
 main_db = "./database"
 
