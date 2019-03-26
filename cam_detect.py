@@ -2,18 +2,23 @@ import numpy as np
 import cv2
 import sys
 import csv
+import os
 
 face_cascade = cv2.CascadeClassifier('Haar_Cascades/haarcascade_frontalface_default.xml')
 
 vid = cv2.VideoCapture(0)
 
-name = 'Kevin'
+name = 'kevin'
 
 crop_size = (100,100)
 
 count = 5
 save2 = np.empty([5,10000])
-print save2
+
+if not os.path.exists('database/'+name):
+    os.makedirs('database/'+name)
+
+#print save2
 while(count):
 
     #capture frame by frame
@@ -37,13 +42,13 @@ while(count):
             save = cv2.resize(roi_gray, crop_size, interpolation=cv2.INTER_CUBIC)
 
         cv2.imshow('gray', save)
-        #cv2.imwrite('data/'+name+str(count)+'.jpg',save)
+        cv2.imwrite('database/'+name+'/'+name+'_'+str(count)+'.jpg',save)
 
         save1 = save.flatten()
         #save1 = np.append(save1,count)
         save2[count-1] = save1
 
-        print save2
+        #print save2
         
         
         count-=1
